@@ -1,6 +1,6 @@
 # flutter_maps
 
-A new Flutter project.
+Ejemplo de Manejo de Mapas, Geolocalización con Flutter
 
 ## Getting Started
 
