@@ -69,8 +69,12 @@ class _EnableGpsMessage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
+        Icon(
+          Icons.warning,
+          size: 60,
+        ),
         Center(
-          child: Text('Debe de habilitar el GPS',
+          child: Text('Debe de habilitar el GPS ',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
         ),
       ],
