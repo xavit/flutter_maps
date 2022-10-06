@@ -19,8 +19,8 @@ class GpsAccesScreen extends StatelessWidget {
             print('state: $state');
 
             return state.isGpsEnabled
-                ? const _EnableGpsMessage()
-                : const _AccesButton();
+                ? const _AccesButton()
+                : const _EnableGpsMessage();
           },
         ),
       ),
