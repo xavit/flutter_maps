@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'gps_event.dart';
 part 'gps_state.dart';
@@ -56,6 +57,33 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
     });
 
     return isEnable;
+  }
+
+  Future<void> askGpsAcces() async {
+    final status = await Permission.location.request();
+
+    final isGpsPermissionGranted = (status.isGranted) ? true : false;
+
+    switch (status) {
+      case PermissionStatus.granted:
+        add(GpsAndPermissionEnvent(
+            isGpsEnabled: state.isGpsEnabled, isGpsPermissionGranted: true));
+        break;
+      case PermissionStatus.denied:
+        print("PermissionStatus.denied");
+        break;
+
+      case PermissionStatus.limited:
+        print("PermissionStatus.limited");
+        break;
+      case PermissionStatus.restricted:
+        print("PermissionStatus.restricted");
+        break;
+
+      case PermissionStatus.permanentlyDenied:
+        // TODO: Handle this case.
+        break;
+    }
   }
 
   @override
