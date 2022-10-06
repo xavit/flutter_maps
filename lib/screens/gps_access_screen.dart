@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_maps/blocs/blocs.dart';
 
 class GpsAccesScreen extends StatelessWidget {
   const GpsAccesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _AccesButton(),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('GPS Access'),
+      // ),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: BlocBuilder<GpsBloc, GpsState>(
+          builder: (context, state) {
+            print('state: $state');
+
+            return state.isGpsEnabled
+                ? const _EnableGpsMessage()
+                : const _AccesButton();
+          },
+        ),
+      ),
     );
   }
 }
@@ -17,20 +34,26 @@ class _AccesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Es necesario el acceso a GPS",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
-        MaterialButton(
-            onPressed: () => print("click"),
+        const Text(
+          "Es necesario el Acceso al GPS",
+          style: TextStyle(
+            fontSize: 20,
             color: Colors.black,
-            shape: const StadiumBorder(),
-            splashColor: Colors.transparent,
-            child: const Text(
-              "Solicitar Acceso",
-              style: TextStyle(color: Colors.white),
-            ))
+          ),
+        ),
+        const SizedBox(height: 30),
+        MaterialButton(
+          onPressed: () => print("click"),
+          color: Colors.black,
+          shape: const StadiumBorder(),
+          splashColor: Colors.transparent,
+          child: const Text(
+            "Solicitar Acceso",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ],
     );
   }
@@ -43,9 +66,14 @@ class _EnableGpsMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Debe de habilitar el GPS',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Center(
+          child: Text('Debe de habilitar el GPS',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
+        ),
+      ],
     );
   }
 }
